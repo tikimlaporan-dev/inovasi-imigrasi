@@ -1,0 +1,728 @@
+:root {
+    --black:    #050D1A;
+    --dark:     #0B1628;
+    --panel:    #101F3A;
+    
+    --teal-dim: #005C52;
+    --gold:     #F8DBA1;
+    --gold-dim: #4a3000;
+    --silver:   #8EA8C8;
+    --muted:    #3A5070;
+    --accent:   #033566;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--black);
+    color: #fff;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* ── Background layers ── */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            ellipse 60% 50% at 15% 0%,
+            rgba(0,201,177,.10) 0%,
+            transparent 70%
+        ),
+
+        radial-gradient(
+            ellipse 50% 60% at 90% 100%,
+            rgba(255,182,39,.07) 0%,
+            transparent 70%
+        ),
+
+        url('/images/logo.png');
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 500px;
+
+    opacity: .06;
+
+    pointer-events: none;
+    z-index: -1;
+
+    animation: bgFloat 12s ease-in-out infinite;
+}
+
+@keyframes bgFloat {
+    0%, 100% {
+        transform: scale(1) translateY(0px);
+    }
+
+    50% {
+        transform: scale(1.04) translateY(-10px);
+    }
+}
+
+/* Grid lines bg */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+
+    background-image:
+        linear-gradient(rgba(0,201,177,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,201,177,.03) 1px, transparent 1px);
+
+    background-size: 60px 60px;
+
+    pointer-events: none;
+    z-index: -1;
+}
+
+.wrap { 
+    position: relative; 
+    z-index: 1; 
+    min-height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+}
+
+/* ── Nav ── */
+nav {
+    background: rgba(11,22,40,.95);
+    border-bottom: 1px solid var(--teal);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-brand { 
+    display: flex; 
+    align-items: center; 
+    gap: 14px; 
+}
+
+.nav-logo {
+    width: 42px; 
+    height: 42px;
+    border-radius: 10px;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 11px; 
+    font-weight: 700; 
+    color: var(--black);
+    letter-spacing: .5px;
+    flex-shrink: 0;
+}
+
+.nav-title { 
+    font-size: 15px; 
+    font-weight: 600; 
+    color: #fff; 
+    line-height: 1.2; 
+}
+
+.nav-sub { 
+    font-size: 10px; 
+    color: var(--silver); 
+}
+
+.nav-links { 
+    display: flex; 
+    gap: 4px; 
+}
+
+.nav-link {
+    color: var(--silver);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all .2s;
+}
+
+.nav-link:hover { 
+    color: #fff; 
+    background: rgba(255,255,255,.05); 
+}
+
+.nav-link.active { 
+    color: var(--teal); 
+    background: rgba(0,201,177,.1); 
+}
+
+/* ── Kuota banner ── */
+.kuota-wrap {
+    padding: 28px 40px 0;
+}
+
+.kuota-card {
+    background: linear-gradient(
+        135deg,
+        rgba(0,201,177,.08) 0%,
+        rgba(11,22,40,.75) 100%
+    );
+
+    border: 1px solid rgba(0,201,177,.3);
+    border-radius: 20px;
+    padding: 28px 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    backdrop-filter: blur(12px);
+
+    position: relative;
+    overflow: hidden;
+
+    box-shadow: inset 4px 0 0 var(--teal);
+}
+
+/* Background slider */
+.kuota-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background-image: url('/images/slank.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    animation:
+        bannerSlider 24s infinite,
+        panLeft 24s linear infinite;
+
+    opacity: .28;
+
+    z-index: 0;
+}
+
+/* Overlay gelap */
+.kuota-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,13,26,.92) 0%,
+            rgba(5,13,26,.72) 40%,
+            rgba(5,13,26,.82) 100%
+        );
+
+    z-index: 1;
+}
+
+.kuota-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes bannerSlider {
+
+    0%, 32% {
+        background-image: url('/images/slank.jpeg');
+    }
+
+    33%, 65% {
+        background-image: url('/images/talung.jpeg');
+    }
+
+    66%, 100% {
+        background-image: url('/images/99kubah.jpg');
+    }
+}
+
+/* Gerakan slow geser kiri */
+@keyframes panLeft {
+
+    0% {
+        background-position: center right;
+        transform: scale(1.12);
+    }
+
+    100% {
+        background-position: center left;
+        transform: scale(1.2);
+    }
+}
+
+.kuota-label {
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.kuota-num {
+    font-size: 56px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1;
+    letter-spacing: -2px;
+}
+
+.kuota-desc { 
+    font-size: 13px; 
+    color: var(--silver); 
+    margin-top: 6px; 
+}
+
+.kuota-icon {
+    width: 80px; 
+    height: 80px;
+    border-radius: 50%;
+    border: 2px solid var(--teal);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 36px;
+    background: rgba(0,201,177,.08);
+    animation: pulse-ring 2.5s ease-in-out infinite;
+    flex-shrink: 0;
+}
+
+@keyframes pulse-ring {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(0,201,177,.4); 
+    }
+
+    50% {       
+        box-shadow: 0 0 0 14px rgba(0,201,177,0); 
+    }
+}
+
+/* ── Hero ── */
+.hero {
+    padding: 40px 40px 16px;
+    text-align: center;
+}
+
+.hero-eyebrow {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--teal);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 16px;
+    padding: 5px 18px;
+    border: 1px solid rgba(0,201,177,.3);
+    border-radius: 20px;
+    background: rgba(0,201,177,.06);
+}
+
+.hero-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -1px;
+}
+
+/* .hero-title .accent { 
+    color: var(--teal); 
+} */
+/* .accent {
+    color: #033566;
+} */
+.hero-title .gold {   
+    color: var(--gold); 
+}
+
+.hero-desc {
+    font-size: 14px;
+    color: var(--silver);
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 16px auto 0;
+}
+
+/* ── Divider ── */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 40px;
+    margin: 24px 0 20px;
+}
+
+.divider-line { 
+    flex: 1; 
+    height: 1px; 
+    background: var(--muted); 
+}
+
+.divider-label {
+    font-size: 10px;
+    color: var(--silver);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ── Card grid ── */
+.grid-wrap {
+    padding: 0 40px 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--muted);
+    border-radius: 20px;
+    padding: 32px 28px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    right: 0;
+    height: 3px;
+    background: var(--teal);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .3s ease;
+}
+
+.card:hover {
+    border-color: var(--teal);
+    transform: translateY(-4px);
+    background: rgba(16,31,58,.95);
+}
+
+.card:hover::before { 
+    transform: scaleX(1); 
+}
+
+/* Gold variant */
+.card.gold-card::before { 
+    background: var(--gold); 
+}
+
+.card.gold-card:hover { 
+    border-color: var(--gold); 
+}
+
+/* Featured card */
+.card.featured {
+    border-color: rgba(0,201,177,.5);
+    background: linear-gradient(
+        135deg,
+        rgba(0,201,177,.07) 0%, 
+        var(--panel) 60%
+    );
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.card-badge {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.passport-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 200px;
+
+    display: flex;
+    align-items: flex-end;
+}
+
+.passport-card .overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(0,0,0,.92) 5%,
+            rgba(0,0,0,.55) 45%,
+            rgba(0,0,0,.15) 100%
+        );
+
+    z-index: 1;
+}
+
+.passport-card .card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.badge-teal  { 
+    color: var(--teal); 
+    background: var(--teal-dim); 
+    border: 1px solid rgba(0,201,177,.3); 
+}
+
+.badge-gold  { 
+    color: var(--gold); 
+    background: var(--gold-dim); 
+    border: 1px solid rgba(255,182,39,.3); 
+}
+
+.badge-gray  { 
+    color: var(--silver); 
+    background: rgba(58,80,112,.5); 
+    border: 1px solid var(--muted); 
+}
+
+.card-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.card.gold-card .card-title { 
+    color: #FFE08A; 
+}
+
+.card-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,.92);
+    line-height: 1.8;
+    flex: 1;
+
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.9),
+        0 0 18px rgba(0,0,0,.55);
+
+    font-weight: 400;
+
+    backdrop-filter: blur(2px);
+
+    padding: 10px 12px;
+
+    background: linear-gradient(
+        to right,
+        rgba(0,0,0,.28),
+        rgba(0,0,0,.12)
+    );
+
+    border-left: 2px solid rgba(0,201,177,.6);
+
+    border-radius: 8px;
+}
+
+.card-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 22px;
+    padding: 10px 16px;
+
+    width: fit-content;
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+
+    color: #fff;
+
+    background: rgba(0,201,177,.12);
+
+    border: 1px solid rgba(0,201,177,.35);
+    border-radius: 999px;
+
+    backdrop-filter: blur(8px);
+
+    text-shadow:
+        0 0 10px rgba(0,201,177,.45);
+
+    box-shadow:
+        0 0 20px rgba(0,201,177,.08),
+        inset 0 0 12px rgba(255,255,255,.03);
+
+    transition:
+        all .3s ease,
+        gap .3s ease,
+        transform .3s ease;
+}
+
+.card.gold-card .card-arrow { 
+    color: var(--gold); 
+}
+
+.card:hover .card-arrow { 
+    gap: 10px; 
+}
+
+.arrow-line {
+    width: 24px; 
+    height: 1px;
+    background: currentColor;
+    transition: width .2s;
+}
+
+.card:hover .arrow-line { 
+    width: 32px; 
+}
+
+/* ── Footer bar ── */
+footer {
+    margin-top: auto;
+    background: rgba(11,22,40,.9);
+    border-top: 2px solid var(--gold);
+    padding: 14px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(20px);
+}
+
+.footer-brand { 
+    font-size: 11px; 
+    color: var(--silver); 
+}
+
+.footer-brand strong { 
+    color: var(--gold); 
+    font-weight: 600; 
+}
+
+.footer-links { 
+    display: flex; 
+    gap: 20px; 
+}
+
+.footer-link { 
+    font-size: 10px; 
+    color: var(--silver); 
+    text-decoration: none; 
+    transition: color .2s; 
+}
+
+.footer-link:hover { 
+    color: var(--teal); 
+}
+
+/* ── Animations ── */
+@keyframes fade-up {
+    from { 
+        opacity: 0; 
+        transform: translateY(24px); 
+    }
+
+    to {   
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.kuota-wrap { 
+    animation: fade-up .5s ease both; 
+}
+
+.hero {        
+    animation: fade-up .5s .1s ease both; 
+}
+
+.divider {     
+    animation: fade-up .4s .2s ease both; 
+}
+
+.grid-wrap {   
+    animation: fade-up .5s .25s ease both; 
+}
+
+.card { 
+    animation: fade-up .5s ease both; 
+}
+
+.card:nth-child(1) { animation-delay: .3s; }
+.card:nth-child(2) { animation-delay: .38s; }
+.card:nth-child(3) { animation-delay: .46s; }
+.card:nth-child(4) { animation-delay: .54s; }
+
+.kuota-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 10px rgba(0,201,177,.6))
+        drop-shadow(0 0 20px rgba(0,201,177,.3));
+}
+
+.kuota-center {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    width: 100%;
+
+    text-align: center;
+
+    pointer-events: none;
+
+    z-index: 3;
+
+    text-shadow:
+        0 0 12px rgba(0,201,177,.5),
+        0 0 24px rgba(0,201,177,.2);
+}
+
+.kuota-center .hero-title {
+    font-size: 34px;
+    line-height: 1;
+    margin: 0;
+
+    text-shadow:
+        0 0 12px rgba(0,201,177,.5),
+        0 0 24px rgba(0,201,177,.2);
+}
+
+.kuota-center .accent {
+    color: #033566;
+}
+.kuota-center .gold {
+    color: var(--gold);
+
+    text-shadow:
+        0 0 12px rgba(255,182,39,.4),
+        0 0 24px rgba(255,182,39,.2);
+}
